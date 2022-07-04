@@ -1,0 +1,5 @@
+CREATE TABLE `also-datalake-prod.target_s4.DIM_NATUREZA_PB`(
+    CODNATPB INT,
+    ZENATPB STRING(40),
+    CHANGE_TIME TIMESTAMP
+)
