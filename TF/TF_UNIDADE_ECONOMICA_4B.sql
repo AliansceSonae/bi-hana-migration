@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-prod.1_NEGOCIO_S4.TF_UNIDADE_ECONOMICA_4B` ()
+CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_UNIDADE_ECONOMICA_4B` ()
 AS 
 
 WITH var_vzobject AS (
@@ -6,9 +6,9 @@ WITH var_vzobject AS (
         ADROBJTYP,
         ADROBJNR,
         MAX(ADRNR) AS ADRNR
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.vzobject` 
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vzobject` 
     WHERE ADROBJTYP = 'VI'
-        AND ADROBJNR IN (SELECT INTRENO FROM `also-analytics-model-prod.1_AQUISICAO_S4.vibdbe`)
+        AND ADROBJNR IN (SELECT INTRENO FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vibdbe`)
     GROUP BY 			
         ADROBJTYP,
         ADROBJNR
@@ -18,12 +18,12 @@ var_adrc AS (
     SELECT
         T1.*,
         T1.STREET || ', ' || T1.HOUSE_NUM1 || ' - ' || T1.CITY2 AS SHP_DSENDERECO
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.adrc` AS T1
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.adrc` AS T1
     INNER JOIN (
         SELECT
             ADDRNUMBER,
             MAX(DATE_FROM) AS DATE_FROM
-        FROM `also-analytics-model-prod.1_AQUISICAO_S4.adrc`ADRC
+        FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.adrc`ADRC
         WHERE ADDRNUMBER IN (SELECT ADRNR FROM var_vzobject GROUP BY ADRNR)
         GROUP BY
             ADDRNUMBER) AS T2
@@ -33,7 +33,7 @@ var_adrc AS (
 
 var_vitmoa AS (
     SELECT T1.*
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.vitmoa` AS T1
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vitmoa` AS T1
     INNER JOIN (
         SELECT
             MANDT, 
@@ -41,8 +41,8 @@ var_vitmoa AS (
             TERMTYPE, 
             TERMNO, 
             MAX(VALIDFROM) AS VALIDFROM
-        FROM `also-analytics-model-prod.1_AQUISICAO_S4.vitmoa`
-        WHERE INTRENO IN (SELECT INTRENO FROM `also-analytics-model-prod.1_AQUISICAO_S4.vibdbe`)
+        FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vitmoa`
+        WHERE INTRENO IN (SELECT INTRENO FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vibdbe`)
             AND TERMTYPE = '1120'
         GROUP BY
             MANDT, 
@@ -104,10 +104,10 @@ var_vitmoa AS (
             WHEN VIBDBE.SWENR = 'VPS'   THEN 'VPS'
             ELSE EMPRESA.CSHP_CDSHOPPING
     END 												AS CSHP_CDSHOPPING
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.vibdbe` AS VIBDBE
-    LEFT OUTER JOIN `also-analytics-model-prod.2_NEGOCIO_S4.TF_EMPRESA_4B`() AS EMPRESA
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vibdbe` AS VIBDBE
+    LEFT OUTER JOIN `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_EMPRESA_4B`() AS EMPRESA
         ON EMPRESA.BUKRS = VIBDBE.BUKRS
-    LEFT OUTER JOIN `also-analytics-model-prod.1_AQUISICAO_S4.biw_t001t` AS T001T
+    LEFT OUTER JOIN `also-analytics-model-nonprod.1_AQUISICAO_S4.biw_t001t` AS T001T
         ON 	T001T.MANDT = VIBDBE.MANDT
         AND T001T.BUKRS = VIBDBE.BUKRS
         AND T001T.LANGU = 'P'

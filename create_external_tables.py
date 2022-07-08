@@ -4,7 +4,7 @@ bq_client = bigquery.Client()
 gcs_client = storage.Client()
 
 count_blobs = 0
-for blob in gcs_client.list_blobs("also-analytics-model-nonprod", prefix="s4/"):
+for blob in gcs_client.list_blobs("also-analytics-model-nonprod", prefix="mxm/"):
     if blob.name.endswith(".parquet"):
         print(blob.name)
         dataset, table, f_format = blob.name.split('/')[1].split('.')

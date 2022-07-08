@@ -1,8 +1,6 @@
 CREATE OR REPLACE TABLE PROCEDURE also-analytics-model-prod.3_MATERIALIZADO_S4.DIM_CLM_DOMINIOS_4M () 
-	
-	 
-	---
-	AS
+
+AS
 BEGIN
 		DELETE FROM also-analytics-model-prod.1_AQUISICAO_S4.DIM_CLM_DOMINIOS WHERE 1=1;
 

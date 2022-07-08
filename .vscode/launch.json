@@ -13,7 +13,7 @@
             "justMyCode": true,
             "env": {
                 //"GOOGLE_APPLICATION_CREDENTIALS": "/Users/px/Documents/also/also-analytics-model-prod-36d0c0542468.json",
-                "GOOGLE_APPLICATION_CREDENTIALS": "/Users/px/Documents/also/also-analytics-model-terraform/also-analytics-model-nonprod_credentials.json"
+                "GOOGLE_APPLICATION_CREDENTIALS": "/Users/px/Documents/also-analytics-model-nonprod-855e65a4bd65.json"
             }
         }
     ]

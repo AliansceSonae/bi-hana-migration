@@ -1,27 +1,21 @@
-CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-prod.1_NEGOCIO_S4.TF_OBJETO_LOCACAO_MEDICAO_MENSAL_4B` ()
+CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_OBJETO_LOCACAO_MEDICAO_MENSAL_4B` ()
 AS
 (
-
-DECLARE var_date_begin DATE;
-DECLARE var_date_end DATE;
-
-SET var_date_begin = '20210101';
-SET var_date_end = ADD_YEARS(:var_date_begin, 10);
 
 WITH var_objloc AS ( 
     SELECT 
         INTRENO AS INTRENO_VIBDRO,
-        CASE WHEN VALIDFROM IS NULL			THEN :var_date_begin
-                WHEN VALIDFROM = ''				THEN :var_date_begin
-                WHEN VALIDFROM <	:var_date_begin	THEN :var_date_begin
+        CASE WHEN VALIDFROM IS NULL			THEN 2021-01-01
+                WHEN VALIDFROM = ''				THEN 2021-01-01
+                WHEN CAST(VALIDTO AS INT64) <	20210101	THEN 2021-01-01
                 ELSE VALIDFROM
         END AS VALIDFROM,
-        CASE WHEN VALIDTO IS NULL			THEN :var_date_end
-                WHEN VALIDTO = '' 			THEN :var_date_end
-                WHEN VALIDTO > :var_date_end THEN :var_date_end
+        CASE WHEN VALIDTO IS NULL THEN 2031-01-01
+                WHEN VALIDTO = '' THEN 2031-01-01
+                WHEN CAST(VALIDTO AS INT64) > 20310101 THEN 2031-01-01
                 ELSE VALIDTO
         END AS VALIDTO
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.VIBDRO`
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vibdro`
 ),
                
 var_objloc_tempo AS (
@@ -31,10 +25,10 @@ var_objloc_tempo AS (
         OBJLOC.VALIDFROM,
         OBJLOC.VALIDTO
     FROM var_objloc AS OBJLOC
-    INNER JOIN `also-analytics-model-prod.1_AQUISICAO_S4.dim_tempo_mensal` AS TEMPO
-        ON  TO_VARCHAR(OBJLOC.VALIDFROM, 'YYYYMM') <= TEMPO.CALMONTH
-        AND TO_VARCHAR(OBJLOC.VALIDTO  , 'YYYYMM') >= TEMPO.CALMONTH
-    WHERE TEMPO.CALMONTH BETWEEN TO_VARCHAR(:var_date_begin, 'YYYYMM') AND TO_VARCHAR(:var_date_end, 'YYYYMM')
+    INNER JOIN `also-analytics-model-nonprod.1_AQUISICAO_S4.dim_tempo_mensal` AS TEMPO
+        ON  LEFT(OBJLOC.VALIDFROM, 6) <= TEMPO.CALMONTH
+        AND LEFT(OBJLOC.VALIDTO, 6) >= TEMPO.CALMONTH 
+    WHERE TEMPO.CALMONTH BETWEEN 202101 AND 203101
 ),
     
 var_vibdmeas AS (
@@ -42,13 +36,13 @@ var_vibdmeas AS (
         INTRENO,
         MEAS,
         VALIDTO,
-        CASE WHEN VALIDFROM IS NULL	THEN :var_date_begin
-                WHENVALIDFROM = ''		THEN :var_date_begin
+        CASE WHEN VALIDFROM IS NULL	THEN 2021-01-01
+                WHEN VALIDFROM = ''		THEN 2021-01-01
                 ELSE VALIDFROM
         END AS VALIDFROM,
         MEASVALUE,
         MEASUNIT
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.VIBDMEAS`
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vibdmeas`
     WHERE INTRENO IN (SELECT INTRENO_VIBDRO FROM var_objloc_tempo GROUP BY INTRENO_VIBDRO)
 ),
        
@@ -62,10 +56,10 @@ var_vibdmeas_tempo AS (
         VIBDMEAS.MEASVALUE,
         VIBDMEAS.MEASUNIT
     FROM var_vibdmeas AS VIBDMEAS
-    INNER `also-analytics-model-prod.1_AQUISICAO_S4.dim_tempo_mensal` AS TEMPO
-        ON  TO_VARCHAR(VIBDMEAS.VALIDFROM, 'YYYYMM') <= TEMPO.CALMONTH
-        AND TO_VARCHAR(VIBDMEAS.VALIDTO  , 'YYYYMM') >= TEMPO.CALMONTH
-    WHERE TEMPO.CALMONTH BETWEEN TO_VARCHAR(var_date_begin, 'YYYYMM') AND TO_VARCHAR(var_date_end, 'YYYYMM')
+    INNER JOIN `also-analytics-model-nonprod.1_AQUISICAO_S4.dim_tempo_mensal` AS TEMPO
+        ON  LEFT(VIBDMEAS.VALIDFROM, 6) <= TEMPO.CALMONTH
+        AND LEFT(VIBDMEAS.VALIDTO, 6) >= TEMPO.CALMONTH 
+    WHERE TEMPO.CALMONTH BETWEEN 202101 AND 203101
 )
  
 SELECT
