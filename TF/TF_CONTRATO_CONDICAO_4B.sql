@@ -1,4 +1,5 @@
-CREATE OR REPLACE TABLE FUNCTION`also-datalake-prod.S4.TF_CONTRATO_CONDICAO_4B`() AS (
+CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_CONTRATO_CONDICAO_4B`() 
+AS
     WITH var_calcrule_text AS (
         SELECT
             'A' AS CALCRULE,
@@ -41,8 +42,8 @@ CREATE OR REPLACE TABLE FUNCTION`also-datalake-prod.S4.TF_CONTRATO_CONDICAO_4B`(
             ) AS CC_VALIDFROM,
             IFNULL(VICDCONDCALC.VALUEVALIDTO, VICDCOND.CONDVALIDTO) AS CC_VALIDTO
         FROM
-            `also-datalake-prod.target_s4.vicdcond` AS VICDCOND
-            LEFT OUTER JOIN `also-datalake-prod.target_s4.vicdcondcalc` AS VICDCONDCALC ON VICDCONDCALC.INTRENO = VICDCOND.INTRENO
+            `also-analytics-model-nonprod.1_AQUISICAO_S4.vicdcond` AS VICDCOND
+            LEFT OUTER JOIN `also-analytics-model-nonprod.1_AQUISICAO_S4.vicdcondcalc` AS VICDCONDCALC ON VICDCONDCALC.INTRENO = VICDCOND.INTRENO
             AND VICDCONDCALC.CONDTYPE = VICDCOND.CONDTYPE
             AND VICDCONDCALC.CONDVALIDFROM = VICDCOND.CONDVALIDFROM
         WHERE
@@ -68,7 +69,7 @@ CREATE OR REPLACE TABLE FUNCTION`also-datalake-prod.S4.TF_CONTRATO_CONDICAO_4B`(
             VICDCOND.CONDVALIDFROM AS CC_VALIDFROM,
             VICDCOND.CONDVALIDTO AS CC_VALIDTO
         FROM
-            `also-datalake-prod.target_s4.vicdcond` AS VICDCOND
+            `also-analytics-model-nonprod.1_AQUISICAO_S4.vicdcond` AS VICDCOND
         WHERE
             VICDCOND.CONDDELETE = ''
             AND VICDCOND.CALCRULE IN ('E1')
@@ -91,7 +92,7 @@ CREATE OR REPLACE TABLE FUNCTION`also-datalake-prod.S4.TF_CONTRATO_CONDICAO_4B`(
             VICDCOND.CONDVALIDFROM AS CC_VALIDFROM,
             VICDCOND.CONDVALIDTO AS CC_VALIDTO
         FROM
-            `also-datalake-prod.target_s4.vicdcond` AS VICDCOND
+            `also-analytics-model-nonprod.1_AQUISICAO_S4.vicdcond` AS VICDCOND
         WHERE
             VICDCOND.CONDDELETE = ''
             AND VICDCOND.CALCRULE IN ('U')
@@ -101,19 +102,19 @@ CREATE OR REPLACE TABLE FUNCTION`also-datalake-prod.S4.TF_CONTRATO_CONDICAO_4B`(
         SELECT
             *
         FROM
-            `also-datalake-prod.S4.TF_CONDICAO_4B`()
+            `also-analytics-model-nonprod.3_MATERIALIZADO_S4.DIM_CONDICAO`
     )
     SELECT
-        --CONTR.CSHP_CDSHOPPING as CSHP_CDSHOPPING,
+        CONTR.CSHP_CDSHOPPING as CSHP_CDSHOPPING,
         COND.INTRENO_VICNCN as INTRENO_VICNCN,
-        --CONTR.BUKRS as BUKRS,
-        --CONTR.RECNNR as RECNNR,
-        --CONTR.SMIVE as SMIVE,
-        --CONTR.XMETXT as XMETXT,
-        --CONTR.SMENR as SMENR,
-        --CONTR.INTRENO as INTRENO,
-        --CONTR.DMIBEG as DMIBEG,
-        --CONTR.DMIEND as DMIEND,
+        CONTR.BUKRS as BUKRS,
+        CONTR.RECNNR as RECNNR,
+        CONTR.SMIVE as SMIVE,
+        CONTR.XMETXT as XMETXT,
+        CONTR.SMENR as SMENR,
+        CONTR.INTRENO as INTRENO,
+        CONTR.DMIBEG as DMIBEG,
+        CONTR.DMIEND as DMIEND,
         COND.CONDTYPE as CONDTYPE,
         DIM_COND.CONDTYPE_TEXT30 as CONDTYPE_TEXT30,
         COND.CONDVALIDFROM as CONDVALIDFROM,
@@ -138,4 +139,5 @@ CREATE OR REPLACE TABLE FUNCTION`also-datalake-prod.S4.TF_CONTRATO_CONDICAO_4B`(
         var_condicao AS COND
         LEFT OUTER JOIN var_calcrule_text AS TEXT ON TEXT.CALCRULE = COND.CALCRULE
         LEFT OUTER JOIN DIM_CONDICAO AS DIM_COND ON DIM_COND.CONDTYPE = COND.CONDTYPE
-);
+        LEFT OUTER JOIN `also-analytics-model-nonprod.3_MATERIALIZADO_S4.DIM_CONTRATO` AS CONTR
+			        ON CONTR.INTRENO_VICNCN = COND.INTRENO_VICNCN

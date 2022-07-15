@@ -1,17 +1,15 @@
-CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_OBJETO_LOCACAO_MENSAL_4B` ()
-AS 
-
+CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_OBJETO_LOCACAO_MENSAL_4B`() AS (
 WITH var_calmonth_min AS (
     SELECT 
         LEFT(MIN(VALIDFROM), 6) AS CALMONTH_MIN
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.vibdro`
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vibdro`
     WHERE VALIDFROM <> '00000000'
 )
     
 ,var_calmonth AS (
     SELECT
         TEMPO_MENSAL.CALMONTH
-    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.dim_tempo_mensal` AS TEMPO_MENSAL
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_MXM.dim_tempo_mensal` AS TEMPO_MENSAL
     INNER JOIN var_calmonth_min AS TEMPO_MIN
         ON  TEMPO_MENSAL.CALMONTH >= TEMPO_MIN.CALMONTH_MIN
     WHERE TEMPO_MENSAL.CALMONTH <= EXTRACT(YEAR FROM DATE_ADD(CURRENT_DATE('America/Sao_Paulo'), INTERVAL 1 YEAR)) || '12'
@@ -53,7 +51,7 @@ WITH var_calmonth_min AS (
         VIBDRO.ZVENDDESC,
         VIBDRO.ZZCLASS_TP_UTIL,
         TEMPO.CALMONTH
-    FROM `also-analytics-model-prod.1_AQUISICAO_S4.vibdro` AS VIBDRO
+    FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.vibdro` AS VIBDRO
     LEFT OUTER JOIN var_calmonth AS TEMPO
         ON  TEMPO.CALMONTH >= LEFT(VIBDRO.VALIDFROM, 6)
         AND TEMPO.CALMONTH <= LEFT(VIBDRO.VALIDTO, 6)
@@ -116,4 +114,5 @@ LEFT OUTER JOIN `also-analytics-model-prod.1_AQUISICAO_S4.tiv0a` AS TIV0A
     AND TIV0A.SPRAS = 'P'
 LEFT OUTER JOIN `also-analytics-model-prod.1_AQUISICAO_S4.ztmm004` AS ZTMM004
     ON  ZTMM004.ZZCLASS_TP_UTIL = VIBDRO.ZZCLASS_TP_UTIL
-    AND ZTMM004.SNUNR           = VIBDRO.SNUNR;
+    AND ZTMM004.SNUNR           = VIBDRO.SNUNR
+);

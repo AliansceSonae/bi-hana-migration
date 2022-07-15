@@ -5,14 +5,14 @@ DECLARE min_calmonth STRING;
 SET min_calmonth = (SELECT min(value) FROM UNNEST(calmonth) as value);
 
 FOR elem in (SELECT CALMONTH
-          FROM `also-analytics-model-nonprod.1_AQUISICAO_S4.dim_tempo_mensal`
-          WHERE 
-          CALMONTH <> 000000 AND
-          PARSE_DATE('%Y%m', CALMONTH) 
-          BETWEEN 
-          PARSE_DATE('%Y%m', min_calmonth)--calmonth[ORDINAL(1)]) 
-          AND 
-          DATE_ADD(PARSE_DATE('%Y%m', min_calmonth), INTERVAL 1 YEAR))
+              FROM `also-analytics-model-nonprod.1_AQUISICAO_MXM.dim_tempo_mensal`
+              WHERE 
+              CALMONTH <> 000000 AND
+              PARSE_DATE('%Y%m', CALMONTH) 
+              BETWEEN 
+              PARSE_DATE('%Y%m', min_calmonth)--calmonth[ORDINAL(1)]) 
+              AND 
+              DATE_ADD(PARSE_DATE('%Y%m', min_calmonth), INTERVAL 1 YEAR))
     DO
     DELETE 
         FROM `also-analytics-model-nonprod.3_MATERIALIZADO_S4.FLUXO_FINANCEIRO_RE`

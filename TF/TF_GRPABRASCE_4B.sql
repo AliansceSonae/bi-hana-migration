@@ -1,10 +1,10 @@
-CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-prod.2_NEGOCIO_S4.TF_GRPABRASCE_4B`() AS (
+CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_GRPABRASCE_4B`() AS (
 WITH var_abrasce AS (
     SELECT
         ZCODABRASCE,
         ZGRABRASCE
     FROM
-        `also-analytics-model-prod.1_AQUISICAO_S4.ztre002_abrasce`
+        `also-analytics-model-nonprod.1_AQUISICAO_S4.ztre002_abrasce`
     UNION 
     ALL
     SELECT
@@ -29,7 +29,7 @@ FROM
         SELECT
             SHP_CDSHOPPING AS CSHP_CDSHOPPING
         FROM
-            `also-analytics-model-prod.1_AQUISICAO_S4.dm_shopping_as`
+            `also-analytics-model-nonprod.1_AQUISICAO_MXM.dm_shopping_as`
         WHERE
             SHP_CDSHOPPING <> '00001'
         GROUP BY
