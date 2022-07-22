@@ -1,6 +1,6 @@
-PROCEDURE `also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_PRINCIPAL_DADOS_MESTRES` () 
+CREATE OR REPLACE PROCEDURE`also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_PRINCIPAL_DADOS_MESTRES` () 
 BEGIN
-	--DECLARE VAR_RESU "TARGET_ECC::ETL_CARGA_MONITOR";
+	--DECLARE VAR_RESU TARGET_ECC::ETL_CARGA_MONITOR;
 	DECLARE VAR_CALMONTH ARRAY<STRING>;
 	
 	
@@ -84,7 +84,7 @@ BEGIN
     ------------------------------
 	-- SP_ETL_DIM_CONTRATO_HIST --
 	------------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CONTRATO_HIST_4M" (:VAR_CALMONTH);
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CONTRATO_HIST_4M (:VAR_CALMONTH);
 	
 	
 	
@@ -112,49 +112,49 @@ BEGIN
     -- -----------------------------
 	-- -- SP_ETL_DIM_CLM_DOMINIOS --
 	-- -----------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CLM_DOMINIOS_4M" ();
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CLM_DOMINIOS_4M ();
 	
 	
 	
     -- -----------------------------
 	-- -- SP_ETL_DIM_CENTRO_LUCRO --
 	-- -----------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CENTRO_LUCRO_4M" ();
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CENTRO_LUCRO_4M ();
 	
 	
 	
     -- -------------------------------
 	-- -- SP_ETL_DIM_DEDUCAOMINALUG --
 	-- -------------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_DEDUCAOMINALUG_4M" ();
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_DEDUCAOMINALUG_4M ();
 	
 	
 	
     -- -------------------------
 	-- -- SP_ETL_DIM_ALUGPERC --
 	-- -------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_ALUGPERC_4M" ();
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_ALUGPERC_4M ();
 	
 	
 	
     -- ----------------------------------
 	-- -- SP_ETL_DIM_ACRESCIMOCONTRATO --
 	-- ----------------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_ACRESCIMOCONTRATO_4M" ();
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_ACRESCIMOCONTRATO_4M ();
 	
 	
 	
     -- --------------------------------
 	-- -- SP_ETL_DIM_ALUGMINCONTRATO --
 	-- --------------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_ALUGMINCONTRATO_4M" ();
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_ALUGMINCONTRATO_4M ();
 	
 	
 	
     -- ------------------------------
 	-- -- SP_ETL_DIM_CONDESPEC_CES --
 	-- ------------------------------
-	-- CALL "also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CONDESPEC_CES_4M" ();
+	-- CALL also-analytics-model-nonprod.8_CARGA_DADOS.SP_ETL_DIM_CONDESPEC_CES_4M ();
 	
 	
 	

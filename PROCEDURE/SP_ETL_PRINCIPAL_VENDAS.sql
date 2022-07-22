@@ -1,0 +1,33 @@
+CREATE OR REPLACE PROCEDURE `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_PRINCIPAL_VENDAS` () 
+
+BEGIN
+
+	DECLARE VAR_CALMONTH ARRAY<STRING>;
+	
+	SET VAR_CALMONTH = SELECT `also-analytics-model-nonprod.2_NEGOCIO_S4.MESES_PARA_CARGA`();
+	
+	--CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_VENDA_DECLARADA` (VAR_CALMONTH);
+
+	CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_VENDA_INTRAMALL` (VAR_CALMONTH);
+
+	CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_VENDA_AUDITADA` (VAR_CALMONTH);
+		
+	CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_VENDA_DIARIA` (VAR_CALMONTH);
+
+	CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_VENDA_MENSAL` (VAR_CALMONTH);
+
+	-- CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_VENDA_FAT` (VAR_CALMONTH);
+
+	-- CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_VENDA_DIA_PERIODO_FLAT` (VAR_CALMONTH);
+
+	-- CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_BASE_SSS` (VAR_CALMONTH);
+
+	-- CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_BASE_SAS` (VAR_CALMONTH);
+
+	-- CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_BASE_SAR` (VAR_CALMONTH);
+
+	-- CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_BASE_SSR` (VAR_CALMONTH);
+
+	-- CALL `also-analytics-model-nonprod.3_MATERIALIZADO_S4.SP_ETL_BASE_S` (VAR_CALMONTH);
+	
+END;

@@ -82,7 +82,7 @@ var_vendas AS (
         SALES.SALESTYPE,
         SALES.SALESREPORTTYPE,
         T.WEEK,
-        FORMAT_DATE('%W', PARSE_DATE('%Y%m%d', SALES.RPDATE))	AS WEEK_MONTH,
+        FORMAT_DATE('%d', CAST (CONCAT(FORMAT_DATE('%Y-%m-', SALES.RPDATE), CAST(DIV(EXTRACT(DAY FROM  SALES.RPDATE), 7) + 1 AS STRING)) AS date)) WEEK_MONTH,
         SUNDAY.DTSTARTWEEK,
         SUNDAY.DTFINISHWEEK,
         SUM(SALES.NET_SALES)			AS NET_SALES,
@@ -94,7 +94,7 @@ var_vendas AS (
             BUKRS,
             SWENR,
             RECNNR,
-            RPDATE,
+            PARSE_DATE('%Y%m%d', RPDATE) AS RPDATE,
             SALESTYPE,
             SALESREPORTTYPE,
             IFNULL(NET_SALES, 0)	 AS NET_SALES,
@@ -106,7 +106,8 @@ var_vendas AS (
             BUKRS,
             SWENR,
             RECNNR,
-            FORMAT_DATE('%Y%m%d', RPDATE),
+            RPDATE,
+            --FORMAT_DATE('%Y%m%d', RPDATE),
             SALESTYPE,
             SALESREPORTTYPE,
             NET_SALES,
@@ -114,7 +115,8 @@ var_vendas AS (
             FLGINFORMOU
         FROM var_contr_zero) AS SALES
         LEFT OUTER JOIN `also-analytics-model-nonprod.1_AQUISICAO_MXM.dm_tempo_dia` AS T 
-            ON FORMAT_DATE('%Y%m%d', T.DATE_SQL) = SALES.RPDATE
+            --ON FORMAT_DATE('%Y%m%d', T.DATE_SQL) = SALES.RPDATE
+            ON T.DATE_SQL = SALES.RPDATE
         LEFT OUTER JOIN var_sunday AS SUNDAY
             ON T.DATE_SQL = SUNDAY.DATE_SQL
     GROUP BY
@@ -190,7 +192,7 @@ SELECT
     CONTR.KEY_ATVABRASCE,
     CONTR.CC_FQMFLART_SONAE,
     CONTR.FQMFLART,
-    INTRA.RPDATE,
+    INTRA.RPDATE, 
     INTRA.SALESTYPE,
     INTRA.SALESREPORTTYPE,
     CASE WHEN INTRA.SALESREPORTTYPE = 'G'  THEN 'Faturamentos brutos'
@@ -208,11 +210,11 @@ SELECT
     CONTR.CSHP_CDTIPOUNL									AS CSHP_CDTIPOUNL,
     CONTR.CSHP_DTINAUGURA									AS DTINAUGURA, 
     CONTR.CSHP_DTENCERRAMENTO								AS DTENCERRAMENTO, 
-    FORMAT_DATE('%Y%m',PARSE_DATE('%Y%m%d',INTRA.RPDATE))						AS CALMONTH, 
-    FORMAT_DATE('%Y%m', PARSE_DATE('%Y%m%d',INTRA.RPDATE))						AS MONTH_YEAR, 
+    FORMAT_DATE('%Y%m', INTRA.RPDATE)						AS CALMONTH, 
+    FORMAT_DATE('%Y%m', INTRA.RPDATE)						AS MONTH_YEAR, 
     INTRA.RPDATE											AS DATE_SQL, 
-    FORMAT_DATE('%m', PARSE_DATE('%Y%m%d',INTRA.RPDATE)) 							AS MONTH, 
-    FORMAT_DATE('%Y', PARSE_DATE('%Y%m%d',INTRA.RPDATE))						AS YEAR, 
+    FORMAT_DATE('%m', INTRA.RPDATE) 							AS MONTH, 
+    FORMAT_DATE('%Y', INTRA.RPDATE)						AS YEAR, 
     INTRA.WEEK												AS WEEK,
     INTRA.WEEK_MONTH										AS WEEK_MONTH,
     INTRA.DTSTARTWEEK										AS DTSTARTWEEK, 
