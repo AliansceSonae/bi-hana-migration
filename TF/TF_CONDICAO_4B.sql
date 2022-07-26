@@ -9,8 +9,8 @@ CREATE OR REPLACE TABLE FUNCTION `also-analytics-model-nonprod.2_NEGOCIO_S4.TF_C
         T06.XFLOWTYPE AS FLOWTYPE_TEXT,
         T05.SSOLHAB,
         CASE
-            WHEN T05.SSOLHAB = 'H' THEN 'CrÃ©dito'
-            WHEN T05.SSOLHAB = 'S' THEN 'DÃ©bito'
+            WHEN T05.SSOLHAB = 'H' THEN 'Crédito'
+            WHEN T05.SSOLHAB = 'S' THEN 'Débito'
         END AS SSOLHAB_TEXT,
         T01.CALCRULEEXT,
         T08.XSCALCRULE AS CALCRULEEXT_TEXT15,

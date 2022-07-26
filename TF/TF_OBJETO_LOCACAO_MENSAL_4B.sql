@@ -27,10 +27,10 @@ WITH var_calmonth_min AS (
         VIBDRO.VALIDTO,
         VIBDRO.ROTYPE,
         CASE VIBDRO.ROTYPE
-            WHEN 'RU' THEN 'Unidade de loca√ß√£o'
-            WHEN 'PS' THEN 'Pool de √°reas'
-            WHEN 'RS' THEN '√Årea de loca√ß√£o'
-            WHEN 'CO' THEN 'Habita√ß√£o de refer√™ncia'
+            WHEN 'RU' THEN 'Unidade de locaÁ„o'
+            WHEN 'PS' THEN 'Pool de ·reas'
+            WHEN 'RS' THEN '¡rea de locaÁ„o'
+            WHEN 'CO' THEN 'HabitaÁ„o de referÍncia'
         END AS ROTYPE_TEXT,
         VIBDRO.SNUNR,
         VIBDRO.XMETXT,
@@ -44,7 +44,7 @@ WITH var_calmonth_min AS (
         VIBDRO.ZVENDLOC,
         CASE VIBDRO.ZVENDLOC
             WHEN 'VEND' THEN 'Vendida'
-            WHEN 'LOCA' THEN 'Loc√°vel'
+            WHEN 'LOCA' THEN 'Loc·vel'
             ELSE ''
         END AS ZVENDLOC_TEXT,
         VIBDRO.ZPISO,
@@ -94,9 +94,9 @@ SELECT
     MEDICAO.FQMFLART,
     MEDICAO.FEINS,
     MEDICAO.FQMFLART			AS CC_ABL,
-    CASE WHEN ZTMM004.ZZCLASS_TP_UTIL = '√ÇNCORA'	THEN '00001'
+    CASE WHEN ZTMM004.ZZCLASS_TP_UTIL = '¬NCORA'	THEN '00001'
             WHEN ZTMM004.ZZCLASS_TP_UTIL = 'MEGA LOJA'	THEN '00002'
-            WHEN ZTMM004.ZZCLASS_TP_UTIL = 'SAT√âLITE'	THEN '00003'
+            WHEN ZTMM004.ZZCLASS_TP_UTIL = 'SAT…LITE'	THEN '00003'
             ELSE '00099'
     END AS CDTIPOUNL
 FROM var_vibdro AS VIBDRO

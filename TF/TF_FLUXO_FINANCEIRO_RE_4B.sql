@@ -49,10 +49,10 @@ var_flow_type AS (
 	
 var_icon_cfstatus AS ( 
 		SELECT '8X' AS ICON_CFSTATUS, 'Entrada marcada manualmente'		AS ICON_CFSTATUS_TEXT UNION ALL
-		SELECT 'B4' AS ICON_CFSTATUS, 'Entrada j√° lan√ßada'				AS ICON_CFSTATUS_TEXT UNION ALL
-		SELECT 'B3' AS ICON_CFSTATUS, 'Entrada a ser lan√ßada'				AS ICON_CFSTATUS_TEXT UNION ALL
-		SELECT 'P8' AS ICON_CFSTATUS, 'Entrada especial j√° lan√ßada'		AS ICON_CFSTATUS_TEXT UNION ALL
-		SELECT '5B' AS ICON_CFSTATUS, 'Entrada marcada como lan√ßada'		AS ICON_CFSTATUS_TEXT
+		SELECT 'B4' AS ICON_CFSTATUS, 'Entrada j· lanÁada'				AS ICON_CFSTATUS_TEXT UNION ALL
+		SELECT 'B3' AS ICON_CFSTATUS, 'Entrada a ser lanÁada'				AS ICON_CFSTATUS_TEXT UNION ALL
+		SELECT 'P8' AS ICON_CFSTATUS, 'Entrada especial j· lanÁada'		AS ICON_CFSTATUS_TEXT UNION ALL
+		SELECT '5B' AS ICON_CFSTATUS, 'Entrada marcada como lanÁada'		AS ICON_CFSTATUS_TEXT
 ),		
 
 var_alug_perc AS (

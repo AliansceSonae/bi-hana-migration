@@ -196,8 +196,8 @@ SELECT
     INTRA.SALESTYPE,
     INTRA.SALESREPORTTYPE,
     CASE WHEN INTRA.SALESREPORTTYPE = 'G'  THEN 'Faturamentos brutos'
-            WHEN INTRA.SALESREPORTTYPE = 'NG' THEN 'Faturamentos lÃ­quidos e brutos'
-            ELSE 'Faturamentos lÃ­quidos'
+            WHEN INTRA.SALESREPORTTYPE = 'NG' THEN 'Faturamentos líquidos e brutos'
+            ELSE 'Faturamentos líquidos'
     END AS SALESREPORTTYPE_TEXT,
     INTRA.NET_SALES,
     INTRA.GROSS_SALES,
