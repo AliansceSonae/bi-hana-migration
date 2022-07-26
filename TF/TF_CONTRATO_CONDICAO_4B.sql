@@ -8,7 +8,7 @@ AS
         ALL
         SELECT
             'E1' AS CALCRULE,
-            '% em uma condiÃ§Ã£o' AS CALCRULE_TEXT
+            '% em uma condição' AS CALCRULE_TEXT
         UNION
         ALL
         SELECT
@@ -18,7 +18,7 @@ AS
         ALL
         SELECT
             'V' AS CALCRULE,
-            'MediÃ§Ã£o diferente' AS CALCRULE_TEXT
+            'Medição diferente' AS CALCRULE_TEXT
     ),
 
     var_condicao AS (
