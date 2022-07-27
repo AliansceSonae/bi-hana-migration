@@ -7,7 +7,7 @@ gcs_client = storage.Client()
 prefix_folder = "s4"
 
 count_blobs = 0
-for blob in gcs_client.list_blobs("also-analytics-model-nonprod", prefix=prefix_folder + '/target_s4.vicncn.parquet'):
+for blob in gcs_client.list_blobs("also-analytics-model-nonprod", prefix=prefix_folder + '/target_s4.viradocitem.parquet'):
     if blob.name.endswith(".parquet"):
         print(blob.name)
         dataset, table, f_format = blob.name.split('/')[1].split('.')

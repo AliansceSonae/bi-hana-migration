@@ -8,14 +8,14 @@ BEGIN
 	
 	SELECT COUNT(*)
 	INTO VAR_COUNT
-	FROM :var_calmonth;
+	FROM var_calmonth;
 	
 	FOR VAR_I IN 0 .. :VAR_COUNT-1 DO
 	    SELECT CALMONTH
 	    INTO VAR_CURRENT
-	    FROM :var_calmonth
+	    FROM var_calmonth
 	    LIMIT 1 OFFSET :VAR_I;
-	    SELECT :VAR_CURRENT FROM DUMMY;
+	    SELECT :VAR_CURRENT 
 	    
 	    DELETE FROM also-analytics-model-prod.1_AQUISICAO_S4.DIM_CONTRATO_HIST
 		WHERE CALMONTH = :VAR_CURRENT;
