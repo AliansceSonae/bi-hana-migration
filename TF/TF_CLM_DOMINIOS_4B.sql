@@ -4,7 +4,7 @@ SELECT DISTINCT
 	FQM.COMPANY_CODE AS CHAVE,
 	'EMPRESA' AS DOMINIO,
 	CASE WHEN FQM.COMPANY_CODE = '2000' THEN 'Shop. Parque D.Pedro - 2000'
-			WHEN FQM.COMPANY_CODE = '1077' THEN 'Blv. Shopping Bel√©m - 1077'
+			WHEN FQM.COMPANY_CODE = '1077' THEN 'Blv. Shopping BelÈm - 1077'
 			WHEN FQM.COMPANY_CODE = '1082' THEN '2008 Empr. Comerciais - 1082'	
 			WHEN FQM.COMPANY_CODE = '2026' THEN 'Complexo Comer. Colina - 2026'
 			ELSE BUTXT||' - '||BUKRS  END AS TEXTO,
@@ -20,20 +20,20 @@ UNION ALL
 SELECT DISTINCT
 	FQM.CERTAINTY_LEVEL AS CHAVE,
 	'NIVEL_CERTEZA' AS DOMINIO,
-	CASE WHEN FQM.CERTAINTY_LEVEL = 'PAYRQ' THEN  'Previs√£o de Pagamentos - Ordem de Pagamento (FI)'
-		WHEN FQM.CERTAINTY_LEVEL = 'PAY_N'  THEN  'Previs√£o de Pagamentos - Fornecedores'
-		WHEN FQM.CERTAINTY_LEVEL = 'PYORD' THEN 'Previs√£o de Pagamentos - Ordem de Pagamento (TRM)'
-		WHEN FQM.CERTAINTY_LEVEL = 'MEMO' THEN  'Previs√£o de Pagamentos - Folha e D√©bito Autom√°tico'
+	CASE WHEN FQM.CERTAINTY_LEVEL = 'PAYRQ' THEN  'Previs„o de Pagamentos - Ordem de Pagamento (FI)'
+		WHEN FQM.CERTAINTY_LEVEL = 'PAY_N'  THEN  'Previs„o de Pagamentos - Fornecedores'
+		WHEN FQM.CERTAINTY_LEVEL = 'PYORD' THEN 'Previs„o de Pagamentos - Ordem de Pagamento (TRM)'
+		WHEN FQM.CERTAINTY_LEVEL = 'MEMO' THEN  'Previs„o de Pagamentos - Folha e DÈbito Autom·tico'
 		WHEN FQM.CERTAINTY_LEVEL = 'MMPO' THEN  'Planejado de Compras - Pedido'
-		WHEN FQM.CERTAINTY_LEVEL = 'MMPR' THEN  'Planejado Compras - Requisi√ß√£o de Compras'
+		WHEN FQM.CERTAINTY_LEVEL = 'MMPR' THEN  'Planejado Compras - RequisiÁ„o de Compras'
 		WHEN FQM.CERTAINTY_LEVEL = 'MMSA' THEN  'Planejado COmpras - Remessa de Compras'
 		WHEN FQM.CERTAINTY_LEVEL = 'ACTUAL' THEN  'Realizado'
 		WHEN FQM.CERTAINTY_LEVEL = 'LEASE' THEN 'Planejado Faturamento - Contratos'
-		WHEN FQM.CERTAINTY_LEVEL = 'REC_N' THEN  'Previs√£o de Recebimentos - Clientes'
-		WHEN FQM.CERTAINTY_LEVEL = 'SI_CIT' THEN  'Movimenta√ß√µes n√£o Conciliadas'
-		WHEN FQM.CERTAINTY_LEVEL = 'TRM_D' THEN  'Planejado Opera√ß√µes Financeiras - Aplica√ß√µes e Financiamentos'
-		WHEN FQM.CERTAINTY_LEVEL = 'SDSA' THEN  'Planejado Servi√ßos - Presta√ß√£o de Servi√ßos'
-		WHEN FQM.CERTAINTY_LEVEL = 'SDSO' THEN  'Planejado Servi√ßos - Presta√ß√£o de Servi√ßos'
+		WHEN FQM.CERTAINTY_LEVEL = 'REC_N' THEN  'Previs„o de Recebimentos - Clientes'
+		WHEN FQM.CERTAINTY_LEVEL = 'SI_CIT' THEN  'MovimentaÁıes n„o Conciliadas'
+		WHEN FQM.CERTAINTY_LEVEL = 'TRM_D' THEN  'Planejado OperaÁıes Financeiras - AplicaÁıes e Financiamentos'
+		WHEN FQM.CERTAINTY_LEVEL = 'SDSA' THEN  'Planejado ServiÁos - PrestaÁ„o de ServiÁos'
+		WHEN FQM.CERTAINTY_LEVEL = 'SDSO' THEN  'Planejado ServiÁos - PrestaÁ„o de ServiÁos'
 	ELSE DD.DDTEXT END AS TEXTO,
 	DD.DDTEXT AS TEXTO_LONGO
 FROM `also-analytics-model-prod.1_AQUISICAO_S4.FQM_FLOW_FINAL` AS FQM

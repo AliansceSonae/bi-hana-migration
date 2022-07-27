@@ -41,8 +41,8 @@ replacements = [('"', ''),
                 ('JOIN :', 'JOIN ')
 ]
 
-for sql_file in Path.cwd().joinpath('PROCEDURE').iterdir():
-    data = sql_file.read_text()
+for sql_file in Path.cwd().joinpath('CREATE').iterdir(): ## Modificar a pasta quando necessário
+    data = sql_file.read_text(encoding='utf-8')
 
     for item in replacements:
         data = re.sub(item[0], item[1], data)
